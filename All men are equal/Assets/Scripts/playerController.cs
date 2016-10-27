@@ -6,11 +6,12 @@ public class playerController : MonoBehaviour {
 	public float speed = 10;
 	public float jump = 200;
 	public float throwSpeed = 50;
-    public CircleCollider2D player1Coll;
+    public BoxCollider2D player1Coll;
 
     private Rigidbody2D rb2d;
 
 	private Rigidbody2D player2rb2d;
+    private Vector3 direction;
     bool onGround = false;
     bool throwReady;
     Animator anim;
@@ -19,6 +20,7 @@ public class playerController : MonoBehaviour {
     void Start () {
 		player2rb2d = GameObject.Find("smallGuy").GetComponent<Rigidbody2D>();
         rb2d = this.GetComponent<Rigidbody2D>();
+        direction = this.transform.localScale;
         anim = GetComponent<Animator>();
     }
 
@@ -39,8 +41,8 @@ public class playerController : MonoBehaviour {
             velo.x = speed*Time.deltaTime;
             rb2d.velocity = velo;
             anim.SetBool("Walking", true);
-            Vector3 temp = new Vector3(0.5163321f, 0.5163321f, 0.5163321f);
-            this.transform.localScale = temp;
+            direction.x = Mathf.Abs(direction.x);
+            this.transform.localScale = direction;
 
         }
         if (Input.GetKeyUp(KeyCode.D))
@@ -53,8 +55,9 @@ public class playerController : MonoBehaviour {
             velo.x = -speed * Time.deltaTime;
             rb2d.velocity = velo;
             anim.SetBool("Walking", true);
-            Vector3 temp = new Vector3(-0.5163321f, 0.5163321f, 0.5163321f);
-            this.transform.localScale = temp;
+            direction.x = -Mathf.Abs(direction.x);
+            this.transform.localScale = direction;
+
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
@@ -67,8 +70,6 @@ public class playerController : MonoBehaviour {
                 velo.y = throwSpeed * Time.deltaTime;
                 player2rb2d.velocity = velo;
                 print(throwReady);
-
- 
             }
         }
 	
