@@ -5,17 +5,21 @@ public class SmallGuyController : MonoBehaviour
 {
     public float speed = 10;
     public float jump = 200;
-    public CircleCollider2D player2Coll;
+    public BoxCollider2D player2Coll;
 
     private Rigidbody2D rb2d;
+    private Vector3 direction;
 
     bool onGround = false;
+    Animator anim;
 
 
     // Use this for initialization
     void Start()
     {
         rb2d = this.GetComponent<Rigidbody2D>();
+        direction = this.transform.localScale;
+        anim = GetComponent<Animator>();
     }
 
 
@@ -37,13 +41,27 @@ public class SmallGuyController : MonoBehaviour
         {
             velo.x = speed * Time.deltaTime;
             rb2d.velocity = velo;
+            anim.SetBool("Walking", true);
+            direction.x = Mathf.Abs(direction.x);
+            this.transform.localScale = direction;
 
+        }
+        if (Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            anim.SetBool("Walking", false);
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             velo.x = -speed * Time.deltaTime;
             rb2d.velocity = velo;
+            anim.SetBool("Walking", true);
+            direction.x = -Mathf.Abs(direction.x);
+            this.transform.localScale = direction;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftArrow))
+        {
+            anim.SetBool("Walking", false);
         }
 
 
