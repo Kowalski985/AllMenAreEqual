@@ -18,6 +18,7 @@ public class playerController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
 		player2rb2d = GameObject.Find("smallGuy").GetComponent<Rigidbody2D>();
         rb2d = this.GetComponent<Rigidbody2D>();
         direction = this.transform.localScale;
@@ -67,13 +68,21 @@ public class playerController : MonoBehaviour {
         if (Input.GetKey(KeyCode.LeftShift)){
 
         	if(throwReady){
-                velo.y = throwSpeed * Time.deltaTime;
-                player2rb2d.velocity = velo;
-                print(throwReady);
+                StartCoroutine("wait", velo);
+                
             }
         }
 	
 	}
+
+    private IEnumerator wait(Vector2 velo)
+    {
+        anim.Play("player1ThrowV2");
+        yield return new WaitForSeconds(0.17f);
+        velo.y = throwSpeed;
+        player2rb2d.velocity = velo;
+        print(throwReady);
+    }
 
     void OnTriggerStay2D(Collider2D other)
     {   
