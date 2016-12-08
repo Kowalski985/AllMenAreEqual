@@ -12,6 +12,7 @@ public class playerController : MonoBehaviour {
 
 	private Rigidbody2D player2rb2d;
     private Vector3 direction;
+    private SmallGuyController p2script;
     bool onGround = false;
     bool throwReady;
     Animator anim;
@@ -20,6 +21,7 @@ public class playerController : MonoBehaviour {
     void Start () {
 
 		player2rb2d = GameObject.Find("smallGuy").GetComponent<Rigidbody2D>();
+        p2script = GameObject.Find("smallGuy").GetComponent<SmallGuyController>();
         rb2d = this.GetComponent<Rigidbody2D>();
         direction = this.transform.localScale;
         anim = GetComponent<Animator>();
@@ -70,6 +72,7 @@ public class playerController : MonoBehaviour {
         	if(throwReady){
                 StartCoroutine("wait", velo);
                 
+
             }
         }
 	
@@ -82,6 +85,7 @@ public class playerController : MonoBehaviour {
         velo.y = throwSpeed;
         player2rb2d.velocity = velo;
         print(throwReady);
+        p2script.isThrown = true;
     }
 
     void OnTriggerStay2D(Collider2D other)

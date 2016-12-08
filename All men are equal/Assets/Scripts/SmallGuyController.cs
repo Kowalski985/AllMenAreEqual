@@ -5,12 +5,17 @@ public class SmallGuyController : MonoBehaviour
 {
     public float speed = 10;
     public float jump = 200;
+    public float maxZoom = 8;
     public BoxCollider2D player2Coll;
+    public bool isThrown = false;
+    public Camera mainCam;
 
     private Rigidbody2D rb2d;
     private Vector3 direction;
 
+
     bool onGround = false;
+
     Animator anim;
 
 
@@ -63,6 +68,17 @@ public class SmallGuyController : MonoBehaviour
         {
             anim.SetBool("Walking", false);
         }
+        if (isThrown)
+        {
+            if (mainCam.orthographicSize < maxZoom)
+            {
+                mainCam.orthographicSize += 0.05f;
+            }
+        } 
+        else if (mainCam.orthographicSize > 5f)
+        {
+            mainCam.orthographicSize -= 0.05f;
+        }
 
 
     }
@@ -113,6 +129,7 @@ public class SmallGuyController : MonoBehaviour
         {
             //print(onGround);
             onGround = true;
+            isThrown = false;
         }
   
     }
