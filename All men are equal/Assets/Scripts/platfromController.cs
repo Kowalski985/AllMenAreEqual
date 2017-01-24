@@ -10,6 +10,7 @@ public class platfromController : MonoBehaviour {
     private bool isActive = false;
     private Toggle toggleScript;
     private Hold holdScript;
+    private bool stuck = false;
     // Use this for initialization
     void Start () {
         if (buttonToggle)
@@ -39,10 +40,11 @@ public class platfromController : MonoBehaviour {
         {
             isActive = holdScript.isOn;
         }
-        if (isActive)
+        if (isActive || stuck)
         {
             float step = speed * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, target.position, step);
+            if (stuck && transform.position == target.position) stuck = false;
         }
         else
         {
@@ -50,4 +52,30 @@ public class platfromController : MonoBehaviour {
             transform.position = Vector2.MoveTowards(transform.position, start.position, step);
         }
     }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.transform.position.y < transform.position.y)
+        {
+            print("bump");
+            stuck = true;
+        }
+    }
+
+    //void OnTriggerExit2D(Collider2D other)
+    //{
+    //    if (other.transform.position.y < transform.position.y)
+    //    {
+    //        print("whew");
+    //        stuck = false;
+    //    }
+    //}
+
+    //void OnCollisionEnter2D(Collider2D other)
+    //{
+    //    if (other.transform.position.y < transform.position.y)
+    //    {
+    //        print("bump2");
+    //        move up since collision with object at low
+    //    }
+    //}
 }

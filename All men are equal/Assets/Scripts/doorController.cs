@@ -9,6 +9,7 @@ public class doorController : MonoBehaviour {
     private SpriteRenderer SR;
     private bool bigGuy;
     private bool smallGuy;
+    public int sceneIndex;
 
     // Use this for initialization
     void Start () {
@@ -25,7 +26,7 @@ public class doorController : MonoBehaviour {
             SR.sprite = open;
             if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.S))
             {
-                SceneManager.LoadScene(2);
+                SceneManager.LoadScene(sceneIndex);
             }
         }
         else
