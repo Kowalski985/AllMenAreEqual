@@ -13,8 +13,7 @@ public class cameraController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         bigGuy = GameObject.Find("BigGuy").transform;
-        smallGuy = GameObject.Find("smallGuy").transform;
-	
+        smallGuy = GameObject.Find("smallGuy").transform;	
 	}
 	
 	// Update is called once per frame
