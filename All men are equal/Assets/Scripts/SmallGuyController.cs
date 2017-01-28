@@ -68,6 +68,7 @@ public class SmallGuyController : MonoBehaviour
         {
             anim.SetBool("Walking", false);
         }
+
         if (isThrown)
         {
             if (mainCam.orthographicSize < maxZoom)

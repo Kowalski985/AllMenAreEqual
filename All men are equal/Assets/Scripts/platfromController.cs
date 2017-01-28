@@ -9,7 +9,7 @@ public class platfromController : MonoBehaviour {
     public float speed;
     private bool isActive = false;
     private Toggle toggleScript;
-    private Hold holdScript;
+    private Toggle holdScript;
     private bool stuck = false;
     // Use this for initialization
     void Start () {
@@ -17,15 +17,14 @@ public class platfromController : MonoBehaviour {
         {
             toggleScript = buttonToggle.GetComponent<Toggle>();        
         }
-        else if (buttonHold)
+        if (buttonHold)
         {
-            holdScript = buttonHold.GetComponent<Hold>();
+            holdScript = buttonHold.GetComponent<Toggle>();
         }
         else
         {
             isActive = true;
         }
-	
 	}
 
     // Update is called once per frame
