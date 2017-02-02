@@ -9,10 +9,11 @@ public class SmallGuyController : MonoBehaviour
     public BoxCollider2D player2Coll;
     public bool isThrown = false;
     public Camera mainCam;
+    AudioSource jumpaudio;
 
     private Rigidbody2D rb2d;
     private Vector3 direction;
-
+    
 
     bool onGround = false;
 
@@ -25,6 +26,8 @@ public class SmallGuyController : MonoBehaviour
         rb2d = this.GetComponent<Rigidbody2D>();
         direction = this.transform.localScale;
         anim = GetComponent<Animator>();
+        jumpaudio = GetComponent<AudioSource>();
+
     }
 
 
@@ -36,10 +39,13 @@ public class SmallGuyController : MonoBehaviour
         //left-right movements
         if (Input.GetKey(KeyCode.UpArrow))
         {
+
             if (onGround)
             {
+                jumpaudio.Play();
                 velo.y = jump * Time.deltaTime;
                 rb2d.velocity = velo;
+                
             }
         }
         if (Input.GetKey(KeyCode.RightArrow))

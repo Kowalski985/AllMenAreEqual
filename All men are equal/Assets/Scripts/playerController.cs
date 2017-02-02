@@ -7,6 +7,7 @@ public class playerController : MonoBehaviour {
 	public float jump = 200;
 	public float throwSpeed = 50;
     public BoxCollider2D player1Coll;
+    AudioSource jumpaudio;
 
     private Rigidbody2D rb2d;
 
@@ -25,6 +26,7 @@ public class playerController : MonoBehaviour {
         rb2d = this.GetComponent<Rigidbody2D>();
         direction = this.transform.localScale;
         anim = GetComponent<Animator>();
+        jumpaudio = GetComponent<AudioSource>();
     }
 
 
@@ -34,7 +36,9 @@ public class playerController : MonoBehaviour {
         Vector2 velo = rb2d.velocity;
         //left-right movements
         if (Input.GetKey(KeyCode.W))
-        { if (onGround) {
+        { if (onGround)
+            {
+                jumpaudio.Play();
                 velo.y = jump * Time.deltaTime;
                 rb2d.velocity = velo;
             }
